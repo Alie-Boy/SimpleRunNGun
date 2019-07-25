@@ -32,8 +32,8 @@ public class FieldOfView : MonoBehaviour {
 	{
 		enemiesInView.Clear();
 		Collider[] enemies = Physics.OverlapSphere(transform.position, fovRadius, enemyLayerMask);
-		Enemy[] allEnemies = FindObjectsOfType<Enemy>();
-		foreach (Enemy enemy in allEnemies)
+		EnemyMovement[] allEnemies = FindObjectsOfType<EnemyMovement>();
+		foreach (EnemyMovement enemy in allEnemies)
 		{
 			enemy.gameObject.GetComponent<MeshRenderer>().enabled = false;
 		}
