@@ -30,17 +30,22 @@ public class EnemyMovement : MonoBehaviour {
 
 	void Update()
 	{
+		Patrol();
+	}
+
+	private void Patrol()
+	{
 		if (Vector3.Distance(transform.position, destination.position) < destinationTolerance)
 		{
 			if (startWaitTime <= 0f)
 			{
 				startWaitTime = waitTime;
 				SetRandomDestination();
-			} else
+			}
+			else
 			{
 				startWaitTime -= Time.deltaTime;
 			}
 		}
 	}
-	
 }

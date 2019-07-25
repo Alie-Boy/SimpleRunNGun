@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldOfView : MonoBehaviour {
+public class PlayerFieldOfView : MonoBehaviour {
 
 	public LayerMask enemyLayerMask;
 	public LayerMask obstacleMask;
@@ -50,5 +50,15 @@ public class FieldOfView : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public Vector3 DirectionFromAngle(float globalAngle)
+	{
+		return new Vector3(Mathf.Sin(globalAngle * Mathf.Deg2Rad), 0f, Mathf.Cos(globalAngle * Mathf.Deg2Rad));
+	}
+
+	void DrawFieldOfView()
+	{
+
 	}
 }
