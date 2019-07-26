@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour {
 
+	[SerializeField] GameObject bullets;
+	[SerializeField] float rateOfFire;
+
 	[Tooltip("Bounds where the nav mesh agent can go.")]
 	[Header("Patrol")]
 	[SerializeField] float minX;
@@ -21,6 +24,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	[Tooltip("Player Tolerance should always be lower than FOV Radius")]
 	[SerializeField] float playerTolerance;
 
+	private float nextFireTime;
 	private float waitTime;
 	private bool canSeeEnemy  = false;
 	private bool canHearEnemy = false;
@@ -40,6 +44,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	void Start()
 	{
+		if (rateOfFire == 0) rateOfFire = 1;
+		nextFireTime = 1 / rateOfFire;
 		waitTime = waitOnDestination;
 		randomPatrolSpot = new Vector3(Random.Range(minX, maxX), 0f, Random.Range(minZ, maxZ));
 		navMeshAgent.SetDestination(randomPatrolSpot);
@@ -95,6 +101,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	private void Chase()
 	{
+		FireBullets();
+
 		Vector3 playerPosition = GetPlayerPostion();
 		Vector3 dirToPlayer = (playerPosition - transform.position).normalized;
 		transform.LookAt(playerPosition);
@@ -107,7 +115,20 @@ public class EnemyBehaviour : MonoBehaviour {
 			navMeshAgent.SetDestination(playerPosition - dirToPlayer * playerTolerance);
 		}
 	}
-	
+
+	private void FireBullets()
+	{
+		if (nextFireTime < 0f)
+		{
+			Instantiate(bullets, transform.position, transform.rotation);
+			nextFireTime = 1 / rateOfFire;
+		}
+		else
+		{
+			nextFireTime -= Time.deltaTime;
+		}
+	}
+
 	private void Patrol()
 	{
 		navMeshAgent.SetDestination(randomPatrolSpot);

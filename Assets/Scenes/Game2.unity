@@ -926,7 +926,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4805268950933378, guid: 9f239711993b3f445bdc12937a5d6ed9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -11.38
       objectReference: {fileID: 0}
     - target: {fileID: 4805268950933378, guid: 9f239711993b3f445bdc12937a5d6ed9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -934,7 +934,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4805268950933378, guid: 9f239711993b3f445bdc12937a5d6ed9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9.95
       objectReference: {fileID: 0}
     - target: {fileID: 4805268950933378, guid: 9f239711993b3f445bdc12937a5d6ed9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1311,7 +1311,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4612506678580196, guid: 5f404cdf2d6a9e74aa5867c9f460a1cf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.61
+      value: 2.63
       objectReference: {fileID: 0}
     - target: {fileID: 4612506678580196, guid: 5f404cdf2d6a9e74aa5867c9f460a1cf, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1319,7 +1319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4612506678580196, guid: 5f404cdf2d6a9e74aa5867c9f460a1cf, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.83
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 4612506678580196, guid: 5f404cdf2d6a9e74aa5867c9f460a1cf, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1373,6 +1373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43b2a9112d08b9499f2fb80b12760fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullets: {fileID: 1838736863237000, guid: acd250ab66e43304daf2776fc61761cd, type: 2}
+  rateOfFire: 1
   minX: -21
   maxX: 21
   minZ: -11
@@ -1383,5 +1385,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   waitOnDestination: 2
-  destinationTolerance: 2
-  playerTolerance: 2
+  destinationTolerance: 3
+  playerTolerance: 5
