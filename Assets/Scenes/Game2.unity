@@ -1302,6 +1302,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1595401661}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1620411860 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1959225665570420, guid: 9f239711993b3f445bdc12937a5d6ed9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1212858817}
+--- !u!114 &1620411867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1620411860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2a745a1e6b7ce428803b936df6e413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 100
 --- !u!1001 &2011619250
 Prefab:
   m_ObjectHideFlags: 0
@@ -1381,9 +1398,9 @@ MonoBehaviour:
   maxZ: 11
   fovAngle: 90
   fovRadius: 10
-  playerMask:
+  layerMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3072
   waitOnDestination: 2
   destinationTolerance: 3
   playerTolerance: 5

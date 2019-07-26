@@ -16,7 +16,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	[Space]
 	[SerializeField] float fovAngle;
 	[SerializeField] float fovRadius;
-	[SerializeField] LayerMask playerMask;
+	[SerializeField] LayerMask layerMask;
 
 	[Space]
 	[SerializeField] float waitOnDestination;
@@ -27,7 +27,6 @@ public class EnemyBehaviour : MonoBehaviour {
 	private float nextFireTime;
 	private float waitTime;
 	private bool canSeeEnemy  = false;
-	private bool canHearEnemy = false;
 	private bool isPatrolling = false;
 	Vector3 randomPatrolSpot;
 
@@ -54,14 +53,15 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	void Update()
 	{
+		AIBehaviour();
+	}
+
+	private void AIBehaviour()
+	{
 		SetState();
 		if (canSeeEnemy)
 		{
 			Chase();
-		}
-		if (canHearEnemy)
-		{
-			Investigate();
 		}
 		if (isPatrolling)
 		{
@@ -72,31 +72,22 @@ public class EnemyBehaviour : MonoBehaviour {
 	private void SetState()
 	{
 		isPatrolling = true;
+		canSeeEnemy = false;
 		if (Vector3.Distance(GetPlayerPostion(), transform.position) <= fovRadius)
 		{
 			Vector3 dirToPlayer = (GetPlayerPostion() - transform.position).normalized;
-			if (Input.GetKey(KeyCode.LeftShift))
-			{
-				isPatrolling = false;
-				canHearEnemy = true;
-			}
 			if (Vector3.Angle(transform.forward, dirToPlayer) < fovAngle / 2)
 			{
 				Ray ray = new Ray(transform.position, dirToPlayer);
-				if (Physics.Raycast(ray, 100f, playerMask))
+				RaycastHit hit;
+				Physics.Raycast(ray, out hit, 100f, layerMask);
+				if (hit.collider.tag == "Player")
 				{
 					isPatrolling = false;
-					canHearEnemy = false;
 					canSeeEnemy = true;
 				}
 			}
 		}
-	}
-
-	private void Investigate()
-	{
-		navMeshAgent.SetDestination(GetPlayerPostion());
-		canHearEnemy = false;
 	}
 
 	private void Chase()
@@ -106,11 +97,6 @@ public class EnemyBehaviour : MonoBehaviour {
 		Vector3 playerPosition = GetPlayerPostion();
 		Vector3 dirToPlayer = (playerPosition - transform.position).normalized;
 		transform.LookAt(playerPosition);
-		if (Vector3.Distance(transform.position, playerPosition) > fovRadius)
-		{
-			navMeshAgent.ResetPath();
-			canSeeEnemy = false;
-		}
 		if (Vector3.Distance(transform.position, playerPosition) > playerTolerance) { 
 			navMeshAgent.SetDestination(playerPosition - dirToPlayer * playerTolerance);
 		}

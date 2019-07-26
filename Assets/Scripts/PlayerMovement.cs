@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField] float walkSpeed = 6f;
-	[SerializeField] float runSpeed = 12f;
 	[SerializeField] LayerMask groundMask;
 
 	Camera mainCamera;
@@ -35,14 +35,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void CalculateVelocity()
 	{
 		moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical")).normalized;
-		if (Input.GetKey(KeyCode.LeftShift))
-		{
-			velocity = moveDir * runSpeed;
-		}
-		else
-		{
-			velocity = moveDir * walkSpeed;
-		}
+		velocity = moveDir * walkSpeed;
 	}
 
 	private void LookAtMousePosition()
