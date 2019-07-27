@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 23296641483784672}
   - component: {fileID: 54768179827040438}
   - component: {fileID: 114979444587944634}
+  - component: {fileID: 114554120146934202}
   m_Layer: 11
   m_Name: AllSeeingPlayer
   m_TagString: Player
@@ -173,6 +174,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114554120146934202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959225665570420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8249998a1e3ec404c99bf35e5d4b560d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114979444587944634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 6
-  runSpeed: 12
   groundMask:
     serializedVersion: 2
     m_Bits: 256
