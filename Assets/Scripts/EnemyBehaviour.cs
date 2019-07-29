@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/* Some functionalities can be moved to other (new) scripts.
+ * But this script is currently simple enough that I don't
+ * feel it's necessary to do that.
+ */
+
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour {
@@ -26,8 +31,12 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	private float nextFireTime;
 	private float waitTime;
+
+	// only one of these states will be active in a single moment.
 	private bool canSeeEnemy  = false;
+	private bool isSuspicious = false;
 	private bool isPatrolling = false;
+
 	Vector3 randomPatrolSpot;
 
 	private NavMeshAgent navMeshAgent;
@@ -63,6 +72,10 @@ public class EnemyBehaviour : MonoBehaviour {
 		{
 			Chase();
 		}
+		if (isSuspicious)
+		{
+			Investigate();
+		}
 		if (isPatrolling)
 		{
 			Patrol();
@@ -72,7 +85,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	private void SetState()
 	{
 		isPatrolling = true;
-		canSeeEnemy = false;
+		//canSeeEnemy = false;
 		if (Vector3.Distance(GetPlayerPostion(), transform.position) <= fovRadius)
 		{
 			Vector3 dirToPlayer = (GetPlayerPostion() - transform.position).normalized;
@@ -81,10 +94,19 @@ public class EnemyBehaviour : MonoBehaviour {
 				Ray ray = new Ray(transform.position, dirToPlayer);
 				RaycastHit hit;
 				Physics.Raycast(ray, out hit, 100f, layerMask);
+				if (canSeeEnemy && hit.collider.tag == null)
+				{
+				}
 				if (hit.collider.tag == "Player")
 				{
 					isPatrolling = false;
 					canSeeEnemy = true;
+				}
+				// if enemy could see the player in previous frame but not in this frame
+				else if (canSeeEnemy)
+				{
+					isPatrolling = false;
+					isSuspicious = true;
 				}
 			}
 		}
@@ -102,10 +124,20 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 	}
 
+	private void Investigate()
+	{
+		navMeshAgent.SetDestination(GetPlayerPostion());
+		waitTime = waitOnDestination;					// these 2 are set here so that after the Investigation, nav
+		randomPatrolSpot = GetPlayerPostion();			// meshAgent resumes his Patrol.
+		isSuspicious = false;
+		canSeeEnemy = false;
+	}
+
 	private void FireBullets()
 	{
 		if (nextFireTime < 0f)
 		{
+			// Instantiating 1 unit away from the object, otherwise the projectile hits the object itself.
 			Instantiate(bullets, transform.position + transform.forward * 1f, transform.rotation);
 			nextFireTime = 1 / rateOfFire;
 		}
@@ -117,13 +149,13 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	private void Patrol()
 	{
-		navMeshAgent.SetDestination(randomPatrolSpot);
 		if (Vector3.Distance(transform.position, randomPatrolSpot) < destinationTolerance)
 		{
 			if (waitTime <= 0f)
 			{
 				waitTime = waitOnDestination;
 				randomPatrolSpot = new Vector3(Random.Range(minX, maxX), 0f, Random.Range(minZ, maxZ));
+				navMeshAgent.SetDestination(randomPatrolSpot);
 			}
 			else
 			{

@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/* This script is not being used currently.
+ * It makes the enemies outside our field of view invisible.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,9 +60,5 @@ public class PlayerFieldOfView : MonoBehaviour {
 	{
 		return new Vector3(Mathf.Sin(globalAngle * Mathf.Deg2Rad), 0f, Mathf.Cos(globalAngle * Mathf.Deg2Rad));
 	}
-
-	void DrawFieldOfView()
-	{
-
-	}
+	
 }

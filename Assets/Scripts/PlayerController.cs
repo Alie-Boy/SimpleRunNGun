@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 				if (hit.collider.gameObject.CompareTag("Key"))
 				{
 					GameObject key = hit.collider.gameObject;
+
+					// grabbing the "key" in front of us.
 					key.transform.position = transform.position + transform.forward * 2f;
 				}
 			}

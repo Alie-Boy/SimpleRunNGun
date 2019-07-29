@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* This is not being used currently in the game, but use this script
+ * if you want enemy to have predefined patrol point to randomly
+ * choose from.
+ * This is useful when you want enemy to patrol through a certain positions only.
+ */
+
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;

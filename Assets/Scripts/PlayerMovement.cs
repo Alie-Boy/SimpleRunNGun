@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
@@ -29,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+		// moving with rigidbody instead of transform it has slightly higher performance.
 		rigidbody.MovePosition(rigidbody.position + velocity * Time.fixedDeltaTime);
 	}
 
