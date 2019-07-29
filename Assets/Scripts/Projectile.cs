@@ -7,9 +7,11 @@ public class Projectile : MonoBehaviour {
 	[SerializeField] int damage = 10;
 
 	private Vector3 velocity;
+	private Rigidbody rb;
 
 	void Start()
 	{
+		rb = GetComponent<Rigidbody>();
 		velocity = transform.forward * travelSpeed;
 	}
 
@@ -37,7 +39,7 @@ public class Projectile : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		transform.position += velocity * Time.fixedDeltaTime;
+		rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
 	}
 
 }

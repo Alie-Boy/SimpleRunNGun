@@ -8,7 +8,6 @@ public class KeyLock : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log("Collision occured.");
 		if (collision.gameObject == key)
 		{
 			Destroy(gameObject);

@@ -106,7 +106,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		if (nextFireTime < 0f)
 		{
-			Instantiate(bullets, transform.position, transform.rotation);
+			Instantiate(bullets, transform.position + transform.forward * 1f, transform.rotation);
 			nextFireTime = 1 / rateOfFire;
 		}
 		else
