@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ExitGate : MonoBehaviour
 {
+	[SerializeField] Text winText;
 
 	private int numOfPickupsInScene;
+	private Collider collider;
+	private MeshRenderer meshRenderer;
 
 	void Start ()
 	{
+		meshRenderer = GetComponent<MeshRenderer>();
+		collider = GetComponent<BoxCollider>();
+		winText.text = "";
 		numOfPickupsInScene = FindObjectsOfType<Pickup>().Length;
 	}
 
@@ -15,7 +22,13 @@ public class ExitGate : MonoBehaviour
 		numOfPickupsInScene--;
 		if (numOfPickupsInScene <= 0)
 		{
-			Destroy(gameObject);
+			meshRenderer.enabled = false;
+			collider.isTrigger = true;
 		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		winText.text = "You Win!!";
 	}
 }
